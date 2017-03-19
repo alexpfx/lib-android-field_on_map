@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FieldDraw">
+        <attr name="selectAreaStrokeWidth" format="dimension"/>
+        <attr name="selectAreaStroke" format="color"/>
+        <attr name="selectAreaFill" format="color"/>
+        <attr name="selectAreaFillAlpha" format="integer"/>
+
+    </declare-styleable>
+
+</resources>
