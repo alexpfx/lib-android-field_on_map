@@ -15,22 +15,20 @@
         app:layout_constraintRight_toRightOf="parent"
 
         >
-
-        <ImageView
+        <com.google.android.gms.maps.MapView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/fd"
-            android:scaleType="fitXY"/>
+            android:id="@+id/map_view"
 
-        <com.github.alexpfx.fieldonmap.lib.FieldDraw
+            ></com.google.android.gms.maps.MapView>
+
+        <com.github.alexpfx.fieldonmap.lib.FieldMapView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:selectAreaStrokeWidth="1dp"
-            app:selectAreaStroke="@color/colorPrimary"
-            app:selectAreaFill="@color/colorAccent"
-            app:selectAreaFillAlpha="200"
 
-            />
+            >
+
+        </com.github.alexpfx.fieldonmap.lib.FieldMapView>
 
     </FrameLayout>
 

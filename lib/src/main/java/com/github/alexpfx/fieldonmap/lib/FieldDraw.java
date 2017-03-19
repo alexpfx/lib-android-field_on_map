@@ -9,11 +9,16 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.android.gms.maps.MapView;
+
 public class FieldDraw extends View implements FieldDrawControl {
 
     private float mSelectAreaStrokeLineWidth;
     private int mSelectAreaStrokeColor;
     private int mSelectAreaFillAlpha;
+    private MapView mMapView;
+
+
 
     private RectHolder holder;
 
@@ -96,4 +101,7 @@ public class FieldDraw extends View implements FieldDrawControl {
         invalidate();
     }
 
+    public void setMapView(MapView mapView) {
+        mMapView = mapView;
+    }
 }

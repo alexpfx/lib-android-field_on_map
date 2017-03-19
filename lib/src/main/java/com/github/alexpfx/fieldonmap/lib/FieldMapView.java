@@ -1,20 +1,41 @@
 package com.github.alexpfx.fieldonmap.lib;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.FrameLayout;
+
+import com.google.android.gms.maps.MapView;
 
 /**
  * Created by alexandre on 19/03/2017.
  */
 
 public class FieldMapView extends FrameLayout {
+    private static final String TAG = "FieldMapView";
+
     private FieldDraw fieldDraw;
+    private MapView mapView;
 
     public FieldMapView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        readAttrs(context, attrs);
+        init();
+    }
+
+    private void readAttrs(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FieldMapView);
+        int mapViewId = a.getResourceId(R.styleable.FieldMapView_mapView, -1);
+        mapView = (MapView) getRootView().findViewById(mapViewId);
+
+        a.recycle();
     }
 
 
@@ -24,5 +45,12 @@ public class FieldMapView extends FrameLayout {
 
 
     }
+
+
+
+
+
+
+
 
 }
