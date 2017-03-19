@@ -33,7 +33,6 @@ public class FieldMapView extends FrameLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FieldMapView);
         mMapViewId = a.getResourceId(R.styleable.FieldMapView_mapView, -1);
 
-        getRootView().getParent();
         a.recycle();
     }
 
@@ -41,7 +40,6 @@ public class FieldMapView extends FrameLayout {
     public void init (){
         inflate(getContext(), R.layout.field_map_view, this);
         fieldDraw = (FieldDraw) findViewById(R.id.field_drawer);
-
     }
 
 

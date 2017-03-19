@@ -5,6 +5,6 @@ package com.github.alexpfx.fieldonmap.lib;
  */
 
 public interface FieldDrawControl {
-    void down(float x, float y);
-    void move (float x, float y);
+    boolean down(float x, float y);
+    boolean move (float x, float y);
 }

@@ -30,15 +30,12 @@ public class FielDrawGestureDetector implements GestureDetector.OnGestureListene
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        control.down(e.getX(), e.getY());
-        return true;
+        return control.down(e.getX(), e.getY());
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        control.move(e1.getX(), e1.getY());
-        Log.d(TAG, "onScroll: ");
-        return true;
+        return control.move(e1.getX(), e1.getY());
     }
 
     @Override
@@ -46,10 +43,8 @@ public class FielDrawGestureDetector implements GestureDetector.OnGestureListene
 
     }
 
-
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.d(TAG, "onFling: ");
         return true;
     }
 

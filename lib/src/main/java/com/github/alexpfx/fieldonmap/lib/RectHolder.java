@@ -117,14 +117,15 @@ public class RectHolder {
         return r.equals(selectedMark);
     }
 
-    public void select(float x, float y) {
+    public boolean select(float x, float y) {
         for (RectF r : markRects) {
             if (r.contains(x, y)) {
                 selectedMark = r;
-                return;
+                return true;
             }
         }
         selectedMark = null;
+        return false;
     }
 
 
@@ -132,12 +133,12 @@ public class RectHolder {
         return selectedMark != null;
     }
 
-    public void moveSelected(float x, float y) {
+    public boolean moveSelected(float x, float y) {
         if (!getSelectedMark()) {
-            return;
+            return false;
         }
-
         selectedMark.offsetTo(x, y);
+        return true;
     }
 
 }

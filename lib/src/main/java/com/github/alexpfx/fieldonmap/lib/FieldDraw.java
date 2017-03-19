@@ -95,15 +95,17 @@ public class FieldDraw extends View implements FieldDrawControl, OnMapReadyCallb
     }
 
     @Override
-    public void down(float x, float y) {
-        holder.select(x, y);
+    public boolean down(float x, float y) {
+        boolean wasSelected = holder.select(x, y);
         invalidate();
+        return wasSelected;
     }
 
     @Override
-    public void move(float x, float y) {
-        holder.moveSelected(x, y);
+    public boolean move(float x, float y) {
+        final boolean wasMoved = holder.moveSelected(x, y);
         invalidate();
+        return wasMoved;
     }
 
     public void setMapView(MapView mapView) {
