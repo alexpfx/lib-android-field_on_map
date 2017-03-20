@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.github.alexpfx.fieldonmap.lib.FieldMapView;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private MapView mMapView;
+    private FieldMapView mFieldMapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class TestActivity extends AppCompatActivity {
 
         mMapView = (MapView) findViewById(R.id.map_view);
         mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(this);
+
+        mFieldMapView = (FieldMapView) findViewById(R.id.field_map_view);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,14 +45,14 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mMapView != null){
+        if (mMapView != null) {
             mMapView.onResume();
         }
     }
 
     @Override
     protected void onPause() {
-        if (mMapView != null){
+        if (mMapView != null) {
             mMapView.onPause();
         }
         super.onPause();
@@ -53,7 +60,7 @@ public class TestActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (mMapView != null){
+        if (mMapView != null) {
             mMapView.onDestroy();
         }
         super.onDestroy();
@@ -62,7 +69,7 @@ public class TestActivity extends AppCompatActivity {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        if (mMapView != null){
+        if (mMapView != null) {
             mMapView.onLowMemory();
         }
     }
@@ -70,9 +77,14 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mMapView != null){
+        if (mMapView != null) {
             mMapView.onSaveInstanceState(outState);
         }
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mFieldMapView.setMap(googleMap);
     }
 }

@@ -6,24 +6,17 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class FieldDraw extends View implements FieldDrawControl, OnMapReadyCallback {
+public class FieldDraw extends View implements FieldDrawControl{
 
     private static final String TAG = "FieldDraw";
     private float mSelectAreaStrokeLineWidth;
     private int mSelectAreaStrokeColor;
     private int mSelectAreaFillAlpha;
-    private MapView mMapView;
 
     private RectHolder holder;
 
@@ -108,20 +101,5 @@ public class FieldDraw extends View implements FieldDrawControl, OnMapReadyCallb
         return wasMoved;
     }
 
-    public void setMapView(MapView mapView) {
-        mMapView = mapView;
-        Log.d(TAG, "setMapView: "+mapView);
-        if (mMapView != null){
-            mMapView.getMapAsync(this);
-        }
-    }
 
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        LatLng latLng = new LatLng(12, 25);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-        googleMap.addMarker(new MarkerOptions().position(latLng));
-    }
 }

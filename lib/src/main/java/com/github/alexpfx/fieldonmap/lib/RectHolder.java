@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
@@ -25,6 +27,7 @@ public class RectHolder {
     private float markSize;
     private Bitmap markBitmap;
     private RectF[] markRects = new RectF[]{new RectF(), new RectF(), new RectF(), new RectF()};
+    private Point[] points = new Point[]{new Point(), new Point(), new Point(), new Point()};
     private RectF selectedMark = null;
     private Paint markPaint;
 
@@ -139,6 +142,15 @@ public class RectHolder {
         }
         selectedMark.offsetTo(x, y);
         return true;
+    }
+
+
+    public Point[] getPoints() {
+        for (int i = 0; i < markRects.length; i++) {
+            RectF markRect = markRects[i];
+            points[i].set((int) markRect.centerX(), (int)markRect.centerY());
+        }
+        return points;
     }
 
 }

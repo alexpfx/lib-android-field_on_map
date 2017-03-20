@@ -15,14 +15,15 @@
 
 
 
-<!--
-        <com.github.alexpfx.fieldonmap.lib.FieldDraw
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="2dp"
-            app:lineColor="@color/colorAccent"
-            app:lineWidth="2dp"></com.github.alexpfx.fieldonmap.lib.FieldDraw>
--->
+
+        <!--
+                <com.github.alexpfx.fieldonmap.lib.FieldDraw
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    app:lineColor="@color/colorAccent"
+                    app:lineWidth="2dp"></com.github.alexpfx.fieldonmap.lib.FieldDraw>
+        -->
 
 
     </FrameLayout>

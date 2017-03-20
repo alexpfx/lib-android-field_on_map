@@ -9,7 +9,7 @@
     </declare-styleable>
 
     <declare-styleable name="FieldMapView">
-        <attr name="mapView" format="reference"/>
+
     </declare-styleable>
 
 </resources>
