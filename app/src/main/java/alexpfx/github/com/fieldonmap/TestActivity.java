@@ -85,6 +85,8 @@ public class TestActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mFieldMapView.setMap(googleMap);
+
     }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -17,6 +19,11 @@ public class FieldDraw extends View implements FieldDrawControl{
     private float mSelectAreaStrokeLineWidth;
     private int mSelectAreaStrokeColor;
     private int mSelectAreaFillAlpha;
+    private Listener mListener;
+
+    interface Listener {
+        void onPossibleNewLocation(Point [] points);
+    }
 
     private RectHolder holder;
 
@@ -29,6 +36,10 @@ public class FieldDraw extends View implements FieldDrawControl{
 
     public FieldDraw(Context context) {
         super(context);
+    }
+
+    public void setListener(Listener listener) {
+        mListener = listener;
     }
 
     public FieldDraw(Context context, @Nullable AttributeSet attrs) {
@@ -101,5 +112,11 @@ public class FieldDraw extends View implements FieldDrawControl{
         return wasMoved;
     }
 
-
+    @Override
+    public boolean up(float x, float y) {
+        if (mListener != null){
+            mListener.onPossibleNewLocation(holder.getPoints());
+        }
+        return false;
+    }
 }

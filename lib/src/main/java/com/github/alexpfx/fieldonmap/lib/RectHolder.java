@@ -146,10 +146,15 @@ public class RectHolder {
 
 
     public Point[] getPoints() {
+        //copy instead instance.
+        Point[] points = new Point[markRects.length];
+
         for (int i = 0; i < markRects.length; i++) {
             RectF markRect = markRects[i];
-            points[i].set((int) markRect.centerX(), (int)markRect.centerY());
+//            points[i].set((int) markRect.centerX(), (int)markRect.centerY());
+            points[i] = new Point((int) markRect.centerX(), (int) markRect.centerY());
         }
+
         return points;
     }
 

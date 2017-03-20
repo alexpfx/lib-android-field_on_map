@@ -1,6 +1,5 @@
 package com.github.alexpfx.fieldonmap.lib;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -26,6 +25,9 @@ public class InputDetector {
             }
             case MotionEvent.ACTION_MOVE:{
                 return control.move(x, y);
+            }
+            case MotionEvent.ACTION_UP:{
+                return control.up(x, y);
             }
         }
         return false;
