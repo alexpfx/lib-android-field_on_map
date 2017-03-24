@@ -5,25 +5,30 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.google.android.gms.maps.GoogleMap;
-
-public class FieldDraw extends View implements FieldDrawControl{
+public class FieldDraw extends View implements FieldDrawControl {
 
     private static final String TAG = "FieldDraw";
     private float mSelectAreaStrokeLineWidth;
     private int mSelectAreaStrokeColor;
     private int mSelectAreaFillAlpha;
-    private Listener mListener;
+    private LocationListener mListener;
 
-    interface Listener {
-        void onPossibleNewLocation(Point [] points);
+
+    interface LocationListener {
+        void onPossibleNewLocation(Point[] points);
+
+        void onShow();
+
+        void onHide();
     }
+
 
     private RectHolder holder;
 
@@ -38,7 +43,7 @@ public class FieldDraw extends View implements FieldDrawControl{
         super(context);
     }
 
-    public void setListener(Listener listener) {
+    public void setListener(LocationListener listener) {
         mListener = listener;
     }
 
@@ -114,9 +119,23 @@ public class FieldDraw extends View implements FieldDrawControl{
 
     @Override
     public boolean up(float x, float y) {
-        if (mListener != null){
+        if (mListener != null) {
             mListener.onPossibleNewLocation(holder.getPoints());
         }
         return false;
+    }
+
+    public void reset() {
+        holder.reset();
+        invalidate();
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        if (VISIBLE == visibility) {
+            mListener.onShow();
+        } else {
+            mListener.onHide();
+        }
     }
 }

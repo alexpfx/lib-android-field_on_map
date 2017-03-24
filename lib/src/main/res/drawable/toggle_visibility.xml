@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-          android:state_active="true"
-          android:drawable="@drawable/settings_backup_restore_grey_192x192" />
+    <item android:state_checked="true">
+        <bitmap android:src="@drawable/ic_visibility_black_24dp" android:gravity="center_horizontal" android:tint="@color/colorAccent"/>
 
-    <item android:state_enabled="true"
-          android:drawable="@drawable/settings_backup_restore_black_192x192" />
-
-    <item android:state_activated="true"
-          android:drawable="@drawable/settings_backup_restore_black_192x192" />
-
-    <item android:state_first="true"
-          android:drawable="@drawable/settings_backup_restore_black_192x192" />
-
-    <item android:state_checked="true"
-          android:drawable="@drawable/settings_backup_restore_black_192x192" />
-
+    </item>
+    <item android:state_checked="false">
+        <bitmap android:src="@drawable/ic_visibility_off_black_24dp" android:gravity="center_horizontal" android:tint="@color/colorAccent"/>
+    </item>
 </selector>

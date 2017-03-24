@@ -12,6 +12,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
 
+import com.google.maps.android.SphericalUtil;
+
 public class RectHolder {
     private static final String TAG = "RectHolder";
 
@@ -73,6 +75,7 @@ public class RectHolder {
         markRects[1].set(baseWidth - (xMarkMargin + markSize), yMarkMargin, baseWidth - xMarkMargin, yMarkMargin + markSize);
         markRects[2].set(baseWidth - (xMarkMargin + markSize), baseHeight - (yMarkMargin + markSize), baseWidth - xMarkMargin, baseHeight - yMarkMargin);
         markRects[3].set(xMarkMargin, baseHeight - (yMarkMargin + markSize), xMarkMargin + markSize, baseHeight - yMarkMargin);
+
     }
 
     private Paint createMarkPaint() {
@@ -82,7 +85,7 @@ public class RectHolder {
         return p;
     }
 
-    public void updatePath() {
+    private void updatePath() {
         path.reset();
 
         for (int i = 0; i < markRects.length; i++) {
@@ -156,6 +159,10 @@ public class RectHolder {
         }
 
         return points;
+    }
+
+    public void reset (){
+        setupMarkRects();
     }
 
 }
