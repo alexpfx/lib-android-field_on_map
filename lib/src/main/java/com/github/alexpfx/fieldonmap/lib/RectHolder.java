@@ -7,12 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
-import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
-
-import com.google.maps.android.SphericalUtil;
 
 public class RectHolder {
     private static final String TAG = "RectHolder";
@@ -82,6 +79,9 @@ public class RectHolder {
         Paint p = new Paint();
         p.setStyle(Paint.Style.FILL);
         p.setAntiAlias(true);
+
+        int dimensionPixelSize = context.getResources().getDimensionPixelSize(R.dimen.point_name_font_size);
+        p.setTextSize(dimensionPixelSize);
         return p;
     }
 
@@ -89,6 +89,7 @@ public class RectHolder {
         path.reset();
 
         for (int i = 0; i < markRects.length; i++) {
+
             if (i == 0) {
                 path.moveTo(markRects[i].centerX(), markRects[i].centerY());
                 continue;
@@ -106,13 +107,14 @@ public class RectHolder {
         drawMarks(canvas);
     }
 
+    private static final String[] POINT_NAME = new String[]{"A", "B", "C", "D"};
+
     private void drawMarks(Canvas canvas) {
+        int i = 0;
         for (RectF p : markRects) {
-            if (isSelected(p)) {
-                canvas.drawBitmap(markBitmap, null, p, markPaint);
-            } else {
-                canvas.drawBitmap(markBitmap, null, p, markPaint);
-            }
+
+            canvas.drawText(POINT_NAME[i++], p.right - 10, p.top - 10, markPaint);
+            canvas.drawBitmap(markBitmap, null, p, markPaint);
         }
     }
 
@@ -161,7 +163,7 @@ public class RectHolder {
         return points;
     }
 
-    public void reset (){
+    public void reset() {
         setupMarkRects();
     }
 

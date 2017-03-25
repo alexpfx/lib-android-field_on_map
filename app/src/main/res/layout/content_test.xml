@@ -42,7 +42,7 @@
             />
 
 
-        <com.github.alexpfx.fieldonmap.lib.FieldMapView
+        <com.github.alexpfx.fieldonmap.lib.FieldMapCompoundedView
             android:id="@+id/field_map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

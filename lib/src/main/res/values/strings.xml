@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FieldOnMapLib</string>
+    <style name="action_refresh">Refresh</style>
 </resources>

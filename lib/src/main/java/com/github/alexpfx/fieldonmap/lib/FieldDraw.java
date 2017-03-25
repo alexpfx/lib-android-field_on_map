@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.maps.android.SphericalUtil;
+
 public class FieldDraw extends View implements FieldDrawControl {
 
     private static final String TAG = "FieldDraw";
@@ -132,6 +134,10 @@ public class FieldDraw extends View implements FieldDrawControl {
 
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        if (mListener == null){
+            return;
+        }
+
         if (VISIBLE == visibility) {
             mListener.onShow();
         } else {

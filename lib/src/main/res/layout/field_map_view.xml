@@ -8,60 +8,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:columnCount="1"
-
-            >
-
-            <android.support.v4.widget.Space
-                app:layout_rowWeight="1"
-                app:layout_gravity="fill"
-                />
-
-            <ImageButton
-                android:id="@+id/btn_reset_drawer"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_centerVertical="true"
-                android:background="?attr/selectableItemBackground"
-                android:src="@drawable/ic_refresh_black_24dp"
-                android:tint="@color/colorAccent"
-                />
-
-            <ToggleButton
-                android:id="@+id/btn_show_drawer"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/toggle_visibility"
-                android:textOff=""
-                android:textOn=""
-                />
-
-
-            <android.support.v4.widget.Space
-                app:layout_rowWeight="1"
-                app:layout_gravity="fill"
-                />
-        </android.support.v7.widget.GridLayout>
-
 
         <com.github.alexpfx.fieldonmap.lib.FieldDraw
             android:id="@+id/field_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:selectAreaFill="@color/colorAccent"
+
             app:selectAreaFillAlpha="200"
-            app:selectAreaStroke="@color/colorPrimary"
+            app:selectAreaFill="@color/accent"
+
             app:selectAreaStrokeWidth="1dp"
 
             >
 
         </com.github.alexpfx.fieldonmap.lib.FieldDraw>
+
+        <include layout="@layout/toolbar_bottom_drawer_action"/>
+
     </FrameLayout>
 
 </merge>

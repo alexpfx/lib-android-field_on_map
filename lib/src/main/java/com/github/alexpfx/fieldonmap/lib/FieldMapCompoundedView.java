@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -32,18 +34,18 @@ import butterknife.OnClick;
  * Created by alexandre on 19/03/2017.
  */
 
-public class FieldMapView extends FrameLayout implements FieldDraw.LocationListener {
+public class FieldMapCompoundedView extends FrameLayout implements FieldDraw.LocationListener, Toolbar.OnMenuItemClickListener {
     private static final String TAG = "FieldMapView";
 
     private FieldDraw fieldDraw;
     private GoogleMap mMap;
 
 
-    @BindView(R2.id.btn_reset_drawer)
-    ImageButton btnReset;
 
+    @BindView(R2.id.tb_drawer_actions)
+    Toolbar mToolbar;
 
-    public FieldMapView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public FieldMapCompoundedView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -77,38 +79,40 @@ public class FieldMapView extends FrameLayout implements FieldDraw.LocationListe
 
     @Override
     public void onPossibleNewLocation(Point[] points) {
+        if (mMap == null){
+            return;
+        }
         Projection projection = mMap.getProjection();
         List<LatLng> list = new ArrayList<>();
+
+        LatLng firstLatLng = null;
+        LatLng lastLatLng = null;
+
         for (Point point : points) {
             LatLng latLng = projection.fromScreenLocation(point);
+            if (firstLatLng == null) {
+                firstLatLng = latLng;
+            }
+            if (lastLatLng != null) {
+                Log.d(TAG, String.format("Distance: %2.2f m", SphericalUtil.computeDistanceBetween(lastLatLng, latLng)));
+            }
+            lastLatLng = latLng;
             list.add(latLng);
         }
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (LatLng latLng : list) {
-            builder.include(latLng);
-        }
-        LatLngBounds latLngBounds = builder.build();
+        Log.d(TAG, String.format("Distance: %2.2f m", SphericalUtil.computeDistanceBetween(lastLatLng, firstLatLng)));
         double area = SphericalUtil.computeArea(list);
         Log.d(TAG, "onPossibleNewLocation: " + area);
 
-        mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(latLngBounds.getCenter()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
     }
 
     @Override
     public void onShow() {
-        btnReset.setVisibility(VISIBLE);
+
     }
 
     @Override
     public void onHide() {
-        btnReset.setVisibility(INVISIBLE);
-    }
-
-
-    @OnClick(R2.id.btn_reset_drawer)
-    void onBtnResetDrawerClick(View view) {
-        fieldDraw.reset();
     }
 
 
@@ -125,5 +129,18 @@ public class FieldMapView extends FrameLayout implements FieldDraw.LocationListe
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         ButterKnife.bind(this);
+        initBottomToolbar();
+    }
+
+    private void initBottomToolbar() {
+        mToolbar.setOnMenuItemClickListener(this);
+        mToolbar.inflateMenu(R.menu.menu);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        fieldDraw.reset();
+        return true;
     }
 }
+

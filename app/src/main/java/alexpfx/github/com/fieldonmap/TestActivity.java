@@ -1,14 +1,10 @@
 package alexpfx.github.com.fieldonmap;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import com.github.alexpfx.fieldonmap.lib.FieldMapView;
+import com.github.alexpfx.fieldonmap.lib.FieldMapCompoundedView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,7 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 public class TestActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private MapView mMapView;
-    private FieldMapView mFieldMapView;
+    private FieldMapCompoundedView mFieldMapCompoundedView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +25,8 @@ public class TestActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
 
-        mFieldMapView = (FieldMapView) findViewById(R.id.field_map_view);
+        mFieldMapCompoundedView = (FieldMapCompoundedView) findViewById(R.id.field_map_view);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
 
@@ -86,7 +74,7 @@ public class TestActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mFieldMapView.setMap(googleMap);
+        mFieldMapCompoundedView.setMap(googleMap);
 
     }
 }

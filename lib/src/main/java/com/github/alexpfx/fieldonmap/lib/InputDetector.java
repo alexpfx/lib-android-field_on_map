@@ -16,6 +16,7 @@ public class InputDetector {
     }
 
     public boolean onTouchEvent(MotionEvent ev) {
+        ev.findPointerIndex()
         int action = ev.getAction();
         float x = ev.getX();
         float y = ev.getY();
