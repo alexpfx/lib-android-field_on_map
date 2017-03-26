@@ -5,14 +5,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
-import com.google.maps.android.SphericalUtil;
 
 public class FieldDraw extends View implements FieldDrawControl {
 
@@ -106,21 +103,21 @@ public class FieldDraw extends View implements FieldDrawControl {
     }
 
     @Override
-    public boolean down(float x, float y) {
+    public boolean down(float x, float y, int pointerId, int pointerIndex) {
         boolean wasSelected = holder.select(x, y);
         invalidate();
         return wasSelected;
     }
 
     @Override
-    public boolean move(float x, float y) {
+    public boolean move(float x, float y, int pointerId, int pointerIndex) {
         final boolean wasMoved = holder.moveSelected(x, y);
         invalidate();
         return wasMoved;
     }
 
     @Override
-    public boolean up(float x, float y) {
+    public boolean up(float x, float y, int pointerId, int pointerIndex) {
         if (mListener != null) {
             mListener.onPossibleNewLocation(holder.getPoints());
         }

@@ -125,6 +125,7 @@ public class RectHolder {
         return r.equals(selectedMark);
     }
 
+    //TODO criar array com 4 slots para seleção, ou criar hashmap para que tamanho seja dinâmico.
     public boolean select(float x, float y) {
         for (RectF r : markRects) {
             if (r.contains(x, y)) {

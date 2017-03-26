@@ -5,7 +5,7 @@ package com.github.alexpfx.fieldonmap.lib;
  */
 
 public interface FieldDrawControl {
-    boolean down(float x, float y);
-    boolean move (float x, float y);
-    boolean up(float x, float y);
+    boolean down(float x, float y, int pointerId, int pointerIndex);
+    boolean move(float x, float y, int pointerId, int pointerIndex);
+    boolean up(float x, float y, int pointerId, int pointerIndex);
 }
