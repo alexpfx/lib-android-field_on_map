@@ -37,7 +37,7 @@ public class InputDetector {
         Log.d(TAG, "dispatchUp: "+actionIndex);
         int pointerId = ev.getPointerId(actionIndex);
         int pointerIndex = ev.findPointerIndex(pointerId);
-        control.up(ev.getX(pointerId), ev.getY(pointerId), pointerId, pointerIndex);
+        control.up(ev.getX(pointerIndex), ev.getY(pointerIndex), pointerId, pointerIndex);
         return false;
     }
 
