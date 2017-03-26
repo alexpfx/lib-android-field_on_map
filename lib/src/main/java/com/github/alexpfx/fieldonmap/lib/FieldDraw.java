@@ -29,7 +29,7 @@ public class FieldDraw extends View implements FieldDrawControl {
     }
 
 
-    private RectHolder holder;
+    private MarkDrawer mMarkDrawer;
 
     private Paint mLinePaint;
 
@@ -77,7 +77,7 @@ public class FieldDraw extends View implements FieldDrawControl {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-        if (holder == null) {
+        if (mMarkDrawer == null) {
             initHolder(width, height);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -85,7 +85,7 @@ public class FieldDraw extends View implements FieldDrawControl {
 
     private void initHolder(int width, int height) {
         Paint.Style style = getSelectAreaStyle();
-        holder = new RectHolder(width, height, getContext(), mSelectAreaStrokeColor, mSelectAreaFillAlpha, mSelectAreaFillColor, style);
+        mMarkDrawer = new MarkDrawer(width, height, getContext(), mSelectAreaStrokeColor, mSelectAreaFillAlpha, mSelectAreaFillColor, style);
     }
 
     private Paint.Style getSelectAreaStyle() {
@@ -99,39 +99,36 @@ public class FieldDraw extends View implements FieldDrawControl {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        holder.draw(canvas);
+        mMarkDrawer.draw(canvas);
     }
 
     @Override
     public boolean down(float x, float y, int pointerId, int pointerIndex) {
-        boolean wasSelected = holder.select(x, y);
+        boolean wasSelected = mMarkDrawer.select(x, y);
         invalidate();
         return wasSelected;
     }
 
     @Override
     public boolean move(float x, float y, int pointerId, int pointerIndex) {
-        final boolean wasMoved = holder.moveSelected(x, y);
+        final boolean wasMoved = mMarkDrawer.moveSelected(x, y);
         invalidate();
         return wasMoved;
     }
 
     @Override
     public boolean up(float x, float y, int pointerId, int pointerIndex) {
-        if (mListener != null) {
-            mListener.onPossibleNewLocation(holder.getPoints());
-        }
-        return false;
+        return mMarkDrawer.unSelect(x, y);
     }
 
     public void reset() {
-        holder.reset();
+        mMarkDrawer.reset();
         invalidate();
     }
 
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
-        if (mListener == null){
+        if (mListener == null) {
             return;
         }
 
