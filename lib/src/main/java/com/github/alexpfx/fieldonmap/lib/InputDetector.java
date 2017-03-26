@@ -1,5 +1,6 @@
 package com.github.alexpfx.fieldonmap.lib;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -17,29 +18,30 @@ public class InputDetector {
     }
 
     public boolean onTouchEvent(MotionEvent ev) {
-        int actionMasked = ev.getActionMasked();
-        switch (actionMasked) {
+        int actionIndex = ev.getActionIndex();
+        switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                return dispatchActionDown(ev, actionMasked);
+                return dispatchActionDown(ev, actionIndex);
             case MotionEvent.ACTION_MOVE:
-                return dispatchMove(ev, actionMasked);
+                return dispatchMove(ev);
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                return dispatchUp(ev, actionMasked);
+                return dispatchUp(ev, actionIndex);
         }
         return false;
     }
 
 
-    private boolean dispatchUp(MotionEvent ev, int actionMasked) {
-        int pointerId = ev.getPointerId(actionMasked);
+    private boolean dispatchUp(MotionEvent ev, int actionIndex) {
+        Log.d(TAG, "dispatchUp: "+actionIndex);
+        int pointerId = ev.getPointerId(actionIndex);
         int pointerIndex = ev.findPointerIndex(pointerId);
-        control.up(ev.getX(pointerId), ev.getY(pointerId), pointerId, pointerIndex);
+        control.up(ev.getX(pointerIndex), ev.getY(pointerIndex), pointerId, pointerIndex);
         return false;
     }
 
-    private boolean dispatchMove(MotionEvent ev, int actionMasked) {
+    private boolean dispatchMove(MotionEvent ev) {
         for (int i = 0; i < ev.getPointerCount(); i++) {
             int pointerId = ev.getPointerId(i);
             int pointerIndex = ev.findPointerIndex(pointerId);
@@ -49,8 +51,9 @@ public class InputDetector {
         return true;
     }
 
-    private boolean dispatchActionDown(MotionEvent ev, int actionMasked) {
-        int pointerId = ev.getPointerId(actionMasked);
+    private boolean dispatchActionDown(MotionEvent ev, int actionIndex) {
+
+        int pointerId = ev.getPointerId(actionIndex);
         int pointerIndex = ev.findPointerIndex(pointerId);
         float x = ev.getX(pointerIndex);
         float y = ev.getY(pointerIndex);
